@@ -1,0 +1,93 @@
+#!/usr/bin/perl
+#
+# BEAMERSCAPE Export Overlays
+# Written by Jonathan Bohren 
+#
+# About
+#   This script will export the layers from an inkscape svg file into a
+#   directory with the same basename as the .svg file. The layers will be
+#   exported in pdf format to preserve transparency.
+# 
+# Usage
+#   Fist create an inkscape svg with multiple layers. If you copy the
+#   beamer_template.svg file, it will have a convenient grid and the correct
+#   aspect ratio set up for beamer presentations (4:3). Once you have added
+#   your drawings, call:
+#   
+#   $> export_overlays path/to/some_file.svg
+#    
+#   This will create files in path/to/some_file/*.pdf as well as
+#   path/to/some_file/overlay.tex Note that it is possible to put this as an
+#   implicit rule in a latex makefile for convenience.
+#
+#   This tex file can be used with beamer to create successive overlays.
+#   Simply add the following to your beamer tex file:
+#
+#   \input{path/to/some_file/overlay.tex}
+# 
+# Changelist
+#   0.1 - initial release
+#
+# License
+#   Copyright (c) 2011, Jonathan Bohren (jonathan.bohren@gmail.com)
+#   All rights reserved.
+#  
+#   Redistribution and use in source and binary forms, with or without
+#   modification, are permitted provided that the following conditions are met:
+#      * Redistributions of source code must retain the above copyright
+#        notice, this list of conditions and the following disclaimer.
+#      * Redistributions in binary form must reproduce the above copyright
+#        notice, this list of conditions and the following disclaimer in the
+#        documentation and/or other materials provided with the distribution.
+#      * Neither the name of the <organization> nor the
+#        names of its contributors may be used to endorse or promote products
+#        derived from this software without specific prior written permission.
+#  
+#   THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+#   ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+#   WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+#   DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+#   DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+#   (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+#   LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+#   ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+#   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+#   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+use File::Basename;
+
+$inkfile = $ARGV[0];
+
+($inkname,$inkpath,$inksuffix) = fileparse($inkfile,".svg");
+$inkdump = `inkscape $inkfile -S -z`;
+
+print $ids;
+
+@ids = ( $inkdump =~ m/(layer\d+).*/g );
+
+$overlay_path = join('/',$inkpath,$inkname);
+`mkdir -p $overlay_path`;
+
+$tex_path = join('/',$overlay_path,'overlay.tex');
+open (TEXFILE, ">$tex_path");
+print TEXFILE "%overlays!";
+
+$frame_number = 1;
+
+foreach $id ( @ids ) {
+  print $id;
+  print "\n";
+
+  $outfile = join('/',$overlay_path,$id);
+  `inkscape $inkfile -z -C -i '$id' -j -A $outfile.pdf`;
+
+  printf TEXFILE "
+\\begin{textblock}{1}(0,0)
+  \\includegraphics<%d->[width=\\paperwidth]{%s}
+\\end{textblock}
+", $frame_number, $outfile;
+
+  $frame_number += 1;
+}
+
+close (TEXFILE);
