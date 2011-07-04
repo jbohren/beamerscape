@@ -84,13 +84,13 @@ foreach my $layer ( @layers ) {
       $overlay_spec = $1;
     }
 
+    # Debug/info spew
     printf "layer id='%s' label='%s' overlay_spec='%s'\n", $id, $label, $overlay_spec;
 
     my $outfile = join('/',$overlay_path,$id);
     `inkscape $inkfile -z -C -i '$id' -j -A $outfile.pdf`;
 
-    # Create
-    #\%\\includegraphics<\%s>[width=\\paperwidth]{\%s}
+    # Create tex for this layer
     printf TEXFILE "
   \% Layer \"%s\"
   \\pgfdeclareimage[width=\\paperwidth]{%s}{%s}
