@@ -36,6 +36,7 @@
 #     \input{path/to/some_file/overlay.tex}
 # 
 # Changelist
+#   0.2 - added xml parsing to get layer names, info
 #   0.1 - initial release
 #
 # License
@@ -64,41 +65,58 @@
 #   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 #   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
+use strict;
+
 use File::Basename;
+use XML::LibXML;
 
-$inkfile = $ARGV[0];
+my $inkfile = $ARGV[0];
 
-($inkname,$inkpath,$inksuffix) = fileparse($inkfile,".svg");
-$inkdump = `inkscape $inkfile -S -z`;
+# Parse file path
+my ($inkname,$inkpath,$inksuffix) = fileparse($inkfile,".svg");
 
-print $ids;
+# Robust get file layers
+my $file = 'files/camelids.xml';
+my $parser = XML::LibXML->new();
+my $tree = $parser->parse_file($inkfile);
+my $root = $tree->getDocumentElement;
+my @layers = $root->getElementsByTagName('g');
 
-@ids = ( $inkdump =~ m/(layer\d+).*/g );
-
-$overlay_path = join('/',$inkpath,$inkname);
+# Generate and touch the overlay path
+my $overlay_path = join('/',$inkpath,$inkname);
 `mkdir -p $overlay_path`;
 `touch $overlay_path`;
 
-$tex_path = join('/',$overlay_path,'overlay.tex');
+# Open the tex file
+my $tex_path = join('/',$overlay_path,'overlay.tex');
 open (TEXFILE, ">$tex_path");
+
+# Export the layers
 print TEXFILE "%overlays!";
+foreach my $layer ( @layers ) {
+  # Get layer info
+  my $id = $layer->getAttribute('id');
+  my $label = $layer->getAttribute('inkscape:label');
 
-$frame_number = 1;
+  # Parse overlay spec
+  my $overlay_spec = "+-";
 
-foreach $id ( @ids ) {
-  print $id;
-  print "\n";
+  # Get file layers
+  if($label =~ m/<(.+)>/) {
+    $overlay_spec = $1;
+  }
 
-  $outfile = join('/',$overlay_path,$id);
+  printf "layer id='%s' label='%s' overlay_spec='%s'\n", $id, $label, $overlay_spec;
+
+  my $outfile = join('/',$overlay_path,$id);
   `inkscape $inkfile -z -C -i '$id' -j -A $outfile.pdf`;
 
+  # Create
   printf TEXFILE "
 \\begin{textblock}{1}(0,0)
-  \\includegraphics<%d->[width=\\paperwidth]{%s}
+  \\includegraphics<%s>[width=\\paperwidth]{%s}
 \\end{textblock}
-", $frame_number, $outfile;
-
-  $frame_number += 1;
+", $overlay_spec, $outfile;
 }
 
 close (TEXFILE);
