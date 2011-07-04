@@ -96,27 +96,28 @@ print TEXFILE "%overlays!";
 foreach my $layer ( @layers ) {
   # Get layer info
   my $id = $layer->getAttribute('id');
-  my $label = $layer->getAttribute('inkscape:label');
+  if($layer->hasAttribute('inkscape:label')) {
+    my $label = $layer->getAttribute('inkscape:label');
 
-  # Parse overlay spec
-  my $overlay_spec = "+-";
+    # Parse overlay spec
+    my $overlay_spec = "+-";
 
-  # Get file layers
-  if($label =~ m/<(.+)>/) {
-    $overlay_spec = $1;
+    # Get file layers
+    if($label =~ m/<(.+)>/) {
+      $overlay_spec = $1;
+    }
+
+    printf "layer id='%s' label='%s' overlay_spec='%s'\n", $id, $label, $overlay_spec;
+
+    my $outfile = join('/',$overlay_path,$id);
+    `inkscape $inkfile -z -C -i '$id' -j -A $outfile.pdf`;
+
+    # Create
+    printf TEXFILE "
+  \\begin{textblock}{1}(0,0)
+    \\includegraphics<%s>[width=\\paperwidth]{%s}
+  \\end{textblock}\n", $overlay_spec, $outfile;
   }
-
-  printf "layer id='%s' label='%s' overlay_spec='%s'\n", $id, $label, $overlay_spec;
-
-  my $outfile = join('/',$overlay_path,$id);
-  `inkscape $inkfile -z -C -i '$id' -j -A $outfile.pdf`;
-
-  # Create
-  printf TEXFILE "
-\\begin{textblock}{1}(0,0)
-  \\includegraphics<%s>[width=\\paperwidth]{%s}
-\\end{textblock}
-", $overlay_spec, $outfile;
 }
 
 close (TEXFILE);
