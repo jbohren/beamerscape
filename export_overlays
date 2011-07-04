@@ -7,36 +7,12 @@
 #   This script will export the layers from an inkscape svg file into a
 #   directory with the same basename as the .svg file. The layers will be
 #   exported in pdf format to preserve transparency.
-# 
-# Usage
-#   Fist create an inkscape svg with multiple layers. If you copy the
-#   beamer_template.svg file, it will have a convenient grid and the correct
-#   aspect ratio set up for beamer presentations (4:3). Once you have added
-#   your drawings, call:
 #   
-#     $> export_overlays path/to/some_file.svg
-#    
-#   This will create files in path/to/some_file/*.pdf as well as
-#   path/to/some_file/overlay.tex Note that it is possible to put this step
-#   as an implicit rule in a latex makefile for convenience.
-#
-#   
-#   This tex file can be used with beamer to create successive overlays. The
-#   tex output uses the textpos package, so in order for the generated file
-#   compile, you must have the following in your preamble:
-#
-#     \usepackage[absolute,overlay]{textpos}
-#     \setlength{\TPHorizModule}{\paperwidth}
-#     \setlength{\TPVertModule}{\paperheight}
-#     \textblockorigin{0mm}{0mm}
-#   
-#   Then add the following to your beamer tex file in the frame that you
-#   want the overlays to appear:
-#
-#     \input{path/to/some_file/overlay.tex}
+#   For more info, see:
+#     http://code.google.com/p/beamerscape/wiki/ExportOverlays
 # 
 # Changelist
-#   0.2 - added xml parsing to get layer names, info
+#   0.2 - added xml parsing to get layer names, manual overlay specification
 #   0.1 - initial release
 #
 # License
