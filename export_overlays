@@ -12,6 +12,7 @@
 #     http://code.google.com/p/beamerscape/wiki/ExportOverlays
 # 
 # Changelist
+#   0.3 - changed image input to use pgfimage
 #   0.2 - added xml parsing to get layer names, manual overlay specification
 #   0.1 - initial release
 #
@@ -89,10 +90,13 @@ foreach my $layer ( @layers ) {
     `inkscape $inkfile -z -C -i '$id' -j -A $outfile.pdf`;
 
     # Create
+    #\%\\includegraphics<\%s>[width=\\paperwidth]{\%s}
     printf TEXFILE "
+  \% Layer \"%s\"
+  \\pgfdeclareimage[width=\\paperwidth]{%s}{%s}
   \\begin{textblock}{1}(0,0)
-    \\includegraphics<%s>[width=\\paperwidth]{%s}
-  \\end{textblock}\n", $overlay_spec, $outfile;
+    \\pgfuseimage<%s>{%s}
+  \\end{textblock}\n", $label,$id,$outfile,$overlay_spec,$id;
   }
 }
 
