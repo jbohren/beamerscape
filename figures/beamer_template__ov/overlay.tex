@@ -1,0 +1,30 @@
+%overlays!
+  % Layer "<1->Layer"
+  \pgfdeclareimage[width=\paperwidth]{layer1}{figures//beamer_template__ov/layer1}
+  \begin{textblock}{1}(0,0)
+    \pgfuseimage<1->{layer1}
+  \end{textblock}
+
+  % Layer "<2->AnotherLayer"
+  \pgfdeclareimage[width=\paperwidth]{layer2}{figures//beamer_template__ov/layer2}
+  \begin{textblock}{1}(0,0)
+    \pgfuseimage<2->{layer2}
+  \end{textblock}
+
+  % Layer "<3->YetAnotherLayer"
+  \pgfdeclareimage[width=\paperwidth]{layer3}{figures//beamer_template__ov/layer3}
+  \begin{textblock}{1}(0,0)
+    \pgfuseimage<3->{layer3}
+  \end{textblock}
+
+  % Layer "<3>OnlyOn3"
+  \pgfdeclareimage[width=\paperwidth]{layer4}{figures//beamer_template__ov/layer4}
+  \begin{textblock}{1}(0,0)
+    \pgfuseimage<3>{layer4}
+  \end{textblock}
+
+  % Layer "<4->TransparentStuff!"
+  \pgfdeclareimage[width=\paperwidth]{layer5}{figures//beamer_template__ov/layer5}
+  \begin{textblock}{1}(0,0)
+    \pgfuseimage<4->{layer5}
+  \end{textblock}
