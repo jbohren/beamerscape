@@ -1,0 +1,117 @@
+\documentclass{beamer}
+
+% Formatting
+\usepackage[T1]{fontenc}
+\usepackage{fix-cm}
+\usepackage{array}
+
+% Generators
+\usepackage{etoolbox}
+
+% Custom colors
+\usepackage{xcolor}
+\definecolor{bg-bot}{rgb}{0.0,0.0,0.0}
+\definecolor{bg-top}{rgb}{0.2,0.2.,0.2}
+
+\definecolor{normal}{rgb}{1.0,1.0,1.0}
+\definecolor{subtle}{rgb}{0.7,0.7,0.7}
+
+\definecolor{gold}{HTML}{FFBC00}
+\definecolor{pop1}{named}{gold}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Config 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Beamer Theme
+\useoutertheme{infolines} 
+\useinnertheme{rounded}
+\useinnertheme{circles}
+
+% Beamer Fonts
+\setbeamerfont{title}{family=\sf}
+\setbeamerfont{author}{family=\sf}
+\setbeamerfont{frametitle}{family=\sf\bf}
+\setbeamerfont{framesubtitle}{family=\sf}
+\setbeamerfont{structure}{family=\sf}
+\setbeamerfont{items}{family=\sf}
+\setbeamerfont{block title}{family=\bf}
+
+% Beamer Templates
+\setbeamertemplate{background canvas}[vertical shading][bottom=bg-bot,top=bg-top]
+\setbeamertemplate{itemize items}[square] 
+\setbeamertemplate{blocks}[rounded][shadow=false] 
+\setbeamertemplate{navigation symbols}{} 
+
+% Beamer Colors
+\setbeamercolor{background canvas}{bg=black}
+\setbeamercolor{normal text}{bg=black,fg=white}
+\setbeamercolor{structure}{bg=black, fg=pop1}
+
+\setbeamercolor{author in head/foot}{fg=normal}
+\setbeamercolor{title in head/foot}{fg=normal}
+\setbeamercolor{slide in head/foot}{fg=normal}
+\setbeamercolor{section in head/foot}{fg=normal}
+\setbeamercolor{subsection in head/foot}{fg=normal}
+
+\setbeamercolor{title}{fg=pop1,bg=black}
+\setbeamercolor{subtitle}{fg=pop1!60!black,bg=black}
+\setbeamercolor{titlelike}{fg=pop1}
+\setbeamercolor{author}{fg=white,bg=black}
+\setbeamercolor{date}{fg=subtle}
+
+\setbeamercolor{item}{fg=pop1}
+\setbeamercolor{item projected}{fg=pop1!20!black}
+
+\setbeamercolor{frametitle}{fg=pop1}
+\setbeamercolor{framesubtitle}{fg=pop1!70!black,bg=white!5!black}
+\setbeamercolor{alerted text}{fg=pop1}
+\setbeamercolor{fine separation line}{}
+
+\setbeamercolor{block body alerted}{bg=normal text.bg!90!black}
+\setbeamercolor{block body}{bg=black,fg=white}
+\setbeamercolor{block body example}{bg=normal text.bg!90!black}
+
+\setbeamercolor{block title alerted}{use={normal text,alerted text},fg=alerted text.fg!75!normal text.fg,bg=normal text.bg!75!black}
+\setbeamercolor{block title}{fg=pop1!100!black,bg=pop1!30!black}
+\setbeamercolor{block title example}{use={normal text,example text},fg=example text.fg!75!normal text.fg,bg=normal text.bg!75!black}
+
+\setbeamercolor{palette sidebar primary}{use=normal text,fg=normal text.fg}
+\setbeamercolor{palette sidebar quaternary}{use=structure,fg=structure.fg}
+\setbeamercolor{palette sidebar secondary}{use=structure,fg=structure.fg}
+\setbeamercolor{palette sidebar tertiary}{use=normal text,fg=normal text.fg}
+
+\setbeamercolor{section in sidebar}{fg=brown}
+\setbeamercolor{section in sidebar shaded}{fg= grey}
+
+\setbeamercolor{separation line}{}
+
+\setbeamercolor{sidebar}{bg=red}
+\setbeamercolor{sidebar}{parent=palette primary}
+\setbeamercolor{subsection in sidebar}{fg=brown}
+\setbeamercolor{subsection in sidebar shaded}{fg= grey}
+
+\setbeamercolor{graphics back}{bg=white}
+
+
+\usepackage[absolute,overlay]{textpos}
+\setlength{\TPHorizModule}{\paperwidth}
+\setlength{\TPVertModule}{\paperheight}
+\textblockorigin{0mm}{0mm}
+
+
+\begin{document}
+
+\title[Beamerscape]{\bf Beamerscape!}
+\subtitle{Making it easier for inkscape and \LaTeX{} beamer to get along}
+\author[Jon Bohren]{Jon Bohren}
+\date{}
+
+\begin{frame}[plain]
+  \maketitle
+\end{frame}
+
+\begin{frame}{Beamerscape Example}
+  \input{figures/beamer_template__ov/overlay}
+\end{frame}
+\end{document}
+
