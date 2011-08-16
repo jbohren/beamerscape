@@ -12,6 +12,7 @@
 #     http://code.google.com/p/beamerscape/wiki/ExportOverlays
 # 
 # Changelist
+#   0.4 - added "--export-latex" argument to inkscape export
 #   0.3 - changed image input to use pgfimage
 #   0.2 - added xml parsing to get layer names, manual overlay specification
 #   0.1 - initial release
@@ -88,7 +89,7 @@ foreach my $layer ( @layers ) {
     printf "layer id='%s' label='%s' overlay_spec='%s'\n", $id, $label, $overlay_spec;
 
     my $outfile = join('/',$overlay_path,$id);
-    `inkscape $inkfile -z -C -i '$id' -j -A $outfile.pdf`;
+    `inkscape $inkfile -z -C -i '$id' -j -A $outfile.pdf --export-latex`;
 
     # Create tex for this layer
     printf TEXFILE "
