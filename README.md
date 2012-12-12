@@ -56,18 +56,22 @@ You can tell `export_overlays` specifically which layers you want to appear when
  * "LayerX"
  * "LayerB"
  * "LayerA"
+
 Would appear in the order A,B,X. Note that the _names_ of the layers are not important except for the overlay specification. You could specify each frame manually like so:
  * "LayerX`<3->`"
  * "LayerB`<2->`"
  * "LayerA`<1->`"
+
 You could specify this manually using `<+->` as well (this is the default behavior):
  * "LayerX`<+->`"
  * "LayerB`<+->`"
  * "LayerA`<+->`"
+
 If, however, you only wanted "LayerA" to appear alone during the first overlay, and not afterwards, you can specify it like so:
  * "LayerX`<+->`"
  * "LayerB`<+(1)->`"
  * "LayerA`<1>`"
+
 Or, alternatively:
  * "LayerX"
  * "LayerB`<+(1)->`"
