@@ -34,7 +34,6 @@ function(add_beamerscape_overlay SVG_FILE)
 
   message("Adding beamerscape SVG: ${SVG_BASENAME} -> ${OVERLAY_OUTPUT_DIR}")
 
-
   # Add the command to generate the overlays
   add_custom_command(
     OUTPUT ${OVERLAY_OUTPUT_FILE}
