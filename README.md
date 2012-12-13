@@ -27,6 +27,12 @@ Changelist
   * added manual overlay specification
  * 0.1 - initial release 
 
+Dependencies
+------------
+
+ - perl bindings to libxml2
+  - ubuntu: `sudo apt-get install libxml-libxml-perl`
+
 Usage
 -----
 

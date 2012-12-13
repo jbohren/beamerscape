@@ -12,6 +12,7 @@
 #     http://code.google.com/p/beamerscape/wiki/ExportOverlays
 # 
 # Changelist
+#   0.5 - added optional output path argument
 #   0.4 - added "--export-latex" argument to inkscape export
 #   0.3 - changed image input to use pgfimage
 #   0.2 - added xml parsing to get layer names, manual overlay specification
@@ -48,10 +49,19 @@ use strict;
 use File::Basename;
 use XML::LibXML;
 
+# Get the inkscape file name
 my $inkfile = $ARGV[0];
 
 # Parse file path
 my ($inkname,$inkpath,$inksuffix) = fileparse($inkfile,".svg");
+
+# Get the optional output path
+my $outputpath = '';
+if(@ARGV > 1) {
+  $outputpath = $ARGV[1];
+} else {
+  $outputpath = $inkpath;
+}
 
 # Robust get file layers
 my $file = 'files/camelids.xml';
@@ -61,7 +71,7 @@ my $root = $tree->getDocumentElement;
 my @layers = $root->getElementsByTagName('g');
 
 # Generate and touch the overlay path
-my $overlay_path = join('/',$inkpath,$inkname);
+my $overlay_path = join('/',$outputpath,$inkname);
 `mkdir -p $overlay_path`;
 `touch $overlay_path`;
 
