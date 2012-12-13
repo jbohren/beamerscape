@@ -99,7 +99,7 @@ foreach my $layer ( @layers ) {
     printf "layer id='%s' label='%s' overlay_spec='%s'\n", $id, $label, $overlay_spec;
 
     my $outfile = join('/',$overlay_path,$id);
-    `inkscape $inkfile -z -C -i '$id' -j -A $outfile.pdf --export-latex`;
+    `inkscape $inkfile -z -C -i '$id' -j -A $outfile.pdf`;# --export-latex`;
 
     # Create tex for this layer
     printf TEXFILE "
