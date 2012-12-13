@@ -10,22 +10,38 @@ set(BEAMERSCAPE_LOCATION  ${CMAKE_CURRENT_LIST_DIR}
 set(USE_BEAMERSCAPE_LOCATION ${CMAKE_CURRENT_LIST_FILE}
   CACHE INTERNAL "Location of UseBeamerscape.cmake file." FORCE)
 
+set(EXPORT_OVERLAYS_LOCATION  ${BEAMERSCAPE_LOCATION}/../bin/export_overlays
+  CACHE INTERNAL "Location of Beamerscape" FORCE)
+
 # Function to add a beamerscape overlay
 function(add_beamerscape_overlay SVG_FILE)
 
   # Get the basename of the svg file
   get_filename_component(SVG_BASENAME "${SVG_FILE}" NAME_WE)
+  get_filename_component(SVG_PATH "${SVG_FILE}" PATH)
   get_filename_component(SVG_ABSPATH "${SVG_FILE}" ABSOLUTE)
 
-  message("Adding beamerscape SVG: ${SVG_BASENAME}")
+  # Optionally change the output path
+  cmake_parse_arguments(ARGS "" "IMAGE_DIR" "" ${ARGN})
+  if(${ARGS_IMAGE_DIR})
+    set(IMAGE_DIR "${ARGS_IMAGE_DIR}")
+  else()
+    set(IMAGE_DIR "${SVG_PATH}")
+  endif()
+
+  set(OVERLAY_OUTPUT_DIR "${CMAKE_BINARY_DIR}/${IMAGE_DIR}")
+  set(OVERLAY_OUTPUT_FILE "${CMAKE_BINARY_DIR}/${IMAGE_DIR}/${SVG_BASENAME}/overlay.tex")
+
+  message("Adding beamerscape SVG: ${SVG_BASENAME} -> ${OVERLAY_OUTPUT_DIR}")
+
 
   # Add the command to generate the overlays
   add_custom_command(
-    OUTPUT "${SVG_BASENAME}/overlay.tex"
-    COMMAND "${BEAMERSCAPE_LOCATION}/export_overlays" ${SVG_ABSPATH} ${CMAKE_CURRENT_BINARY_DIR}
-    WORKING_DIRECTORY "${CMAKE_CURRENT_BUILD_DIR}"
+    OUTPUT ${OVERLAY_OUTPUT_FILE}
+    COMMAND ${EXPORT_OVERLAYS_LOCATION} ${SVG_ABSPATH} ${OVERLAY_OUTPUT_DIR}
+    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
     COMMENT "Generating beamerscape pdf overlays from \"${SVG_BASENAME}\"")
   
   # Add the target for this overlay
-  add_custom_target(${SVG_BASENAME} ALL DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/${SVG_BASENAME}/overlay.tex")
+  add_custom_target(${SVG_BASENAME} ALL DEPENDS ${OVERLAY_OUTPUT_FILE})
 endfunction()
