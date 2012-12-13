@@ -9,10 +9,10 @@
 #   exported in pdf format to preserve transparency.
 #   
 #   For more info, see:
-#     http://code.google.com/p/beamerscape/wiki/ExportOverlays
+#     https://github.com/jbohren/beamerscape
 # 
 # Changelist
-#   0.5 - added optional output path argument
+#   0.5 - added optional output path argument & disabled --export-latex argument
 #   0.4 - added "--export-latex" argument to inkscape export
 #   0.3 - changed image input to use pgfimage
 #   0.2 - added xml parsing to get layer names, manual overlay specification
