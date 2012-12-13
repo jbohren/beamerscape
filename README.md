@@ -1,4 +1,4 @@
-BeamerScape
+Beamerscape
 ===========
 
 About
@@ -29,9 +29,18 @@ Changelist
 
 Dependencies
 ------------
+ - Required
+  - inkscape >= 0.47
+  - latex
+  - latex beamer
+  - perl
+  - perl bindings to libxml2
+ - Optional
+  - CMake >= 2.8.3
 
- - perl bindings to libxml2
-  - ubuntu: `sudo apt-get install libxml-libxml-perl`
+### Installing Dependencies on Ubuntu Linux
+
+    sudo apt-get install cmake inkscape latex-beamer perl libxml-libxml-perl
 
 Usage
 -----
