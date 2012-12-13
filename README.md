@@ -10,11 +10,10 @@ _Released under a new BSD license._
 Example
 -------
 
-[Inkscape File With Layers & Manual Overlay Spec](http://beamerscape.googlecode.com/hg/figures/beamer_template__ov.svg)
-
-[Generated LaTeX](http://code.google.com/p/beamerscape/source/browse/figures/beamer_template__ov/overlay.tex)
-
-[PDF From pdflatex](http://beamerscape.googlecode.com/hg/test.pdf)
+See the built-in examples [here](https://github.com/jbohren/beamerscape/tree/master/examples). The `export_overlays` example uses/builds the following:
+ - [Inkscape File With Layers & Manual Overlay Spec](http://beamerscape.googlecode.com/hg/figures/beamer_template__ov.svg)
+ - [Generated LaTeX](http://code.google.com/p/beamerscape/source/browse/figures/beamer_template__ov/overlay.tex)
+ - [PDF From pdflatex](http://beamerscape.googlecode.com/hg/test.pdf)
 
 
 Changelist
