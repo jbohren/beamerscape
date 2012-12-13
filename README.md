@@ -18,6 +18,7 @@ See the built-in examples [here](https://github.com/jbohren/beamerscape/tree/mas
 
 Changelist
 ----------
+ * 0.5 - added optional output path argument & disabled --export-latex argument
  * 0.4 - added "--export-latex" argument to inkscape export command
  * 0.3 - swiched to use pgfimage instead of includegraphics
  * 0.2 - more control over display, more robust layer extraction
