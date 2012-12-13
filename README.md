@@ -45,13 +45,20 @@ Dependencies
 Usage
 -----
 
-First create an inkscape svg with multiple layers. If you copy the [template svg](http://code.google.com/p/beamerscape/source/browse/figures/beamer_template__ov.svg) file, it will already have a convenient grid and the correct aspect ratio set up for standard beamer presentations (4:3). Once you have added your drawings, call (assuming `export_overlays` is in your path):
+### 1. Create the Overlay Source SVG
 
-    export_overlays path/to/some_file.svg
+Create an inkscape svg with multiple layers. Each layer in the SVG will appear in sequence in the final beamer presentation. If you copy the [template svg](http://code.google.com/p/beamerscape/source/browse/figures/beamer_template__ov.svg) file, it will already have a convenient grid and the correct aspect ratio set up for standard beamer presentations (4:3). The layers will appear in _bottom-up_ order from how they're defined in the Inkscape file.
+
+### 2. Generate the Overlays
+Once you have added your drawings, call the `export_overlays` script with an optional output path:
+
+    export_overlays path/to/overlay_source.svg [path/to/generated_overlays]
     
-This will create files in `path/to/some_file/*.pdf` as well as `path/to/some_file/overlay.tex` Note that it is possible to put this step as an implicit rule in a latex makefile for convenience.  See MakefileExample for an example to automate the generation of overlays.
+This will create files in `path/to/overlay_source/*.pdf` as well as `path/to/overlat_source/overlay.tex` unless you specify an destination path, in which case, the `overlay_source` directory will be created there.
 
-This tex file can be used with beamer to create successive overlays. The tex output uses the `textpos` package, so in order for the generated file compile, you must have the following in your preamble:
+### 4. Add the Overlays to a Beamer Presentation
+
+The `overlays.tex` tex file can be used within a beamer presentation to create successive overlays. The tex output uses the `textpos` package, so in order for the generated file compile, you must have the following in your preamble:
 
     \usepackage[absolute,overlay]{textpos}
     \setlength{\TPHorizModule}{\paperwidth}
@@ -60,12 +67,18 @@ This tex file can be used with beamer to create successive overlays. The tex out
 
 Then add the following to your beamer tex file in the frame that you want the overlays to appear:
 
-    \input{path/to/some_file/overlay.tex}
+    \input{path/to/overlay_source/overlay.tex}
 
 Note that the `\includegraphics` macros for each layer will appear in the "bottom-up" order that they appear in the inkscape file.
 
 Advanced Usage
 --------------
+
+### Building with CMake
+
+It's useful to use a build system if you're generating a large number of presentations (i.e. for a course or seminar). In this case, you can use CMake to build your Beamer presentations. See the CMakeLists.txt file found in the examples directory [here](https://github.com/jbohren/beamerscape/blob/master/examples/CMakeLists.txt) for ean example.
+
+### Manipulating How Overlays Appear
 
 You can tell `export_overlays` specifically which layers you want to appear when by putting the overlay specification into the layer name. If you want the default behavior, that causes the display to be identical to the inkscape file, you can leave names without any specification. In other words, the layers:
  * `LayerX`
