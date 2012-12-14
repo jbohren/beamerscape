@@ -29,8 +29,8 @@ function(add_beamerscape_overlay SVG_FILE)
     set(IMAGE_DIR "${SVG_PATH}")
   endif()
 
-  set(OVERLAY_OUTPUT_DIR "${CMAKE_BINARY_DIR}/${IMAGE_DIR}")
-  set(OVERLAY_OUTPUT_FILE "${CMAKE_BINARY_DIR}/${IMAGE_DIR}/${SVG_BASENAME}/overlay.tex")
+  set(OVERLAY_OUTPUT_DIR "${PROJECT_BINARY_DIR}/${IMAGE_DIR}")
+  set(OVERLAY_OUTPUT_FILE "${PROJECT_BINARY_DIR}/${IMAGE_DIR}/${SVG_BASENAME}/overlay.tex")
 
   message("Adding beamerscape SVG: ${SVG_BASENAME} -> ${OVERLAY_OUTPUT_DIR}")
 
@@ -38,9 +38,12 @@ function(add_beamerscape_overlay SVG_FILE)
   add_custom_command(
     OUTPUT ${OVERLAY_OUTPUT_FILE}
     COMMAND ${EXPORT_OVERLAYS_LOCATION} ${SVG_ABSPATH} ${OVERLAY_OUTPUT_DIR}
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "Generating beamerscape pdf overlays from \"${SVG_BASENAME}\"")
   
   # Add the target for this overlay
   add_custom_target(${SVG_BASENAME} ALL DEPENDS ${OVERLAY_OUTPUT_FILE})
+
+  # Add the target to the list of beamerscape overlays
+  set(BEAMERSCAPE_OVERLAY_TARGETS "${SVG_BASENAME};${BEAMERSCAPE_OVERLAY_TARGETS}" PARENT_SCOPE)
 endfunction()

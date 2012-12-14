@@ -11,4 +11,6 @@ include(../cmake/UseBeamerscape.cmake)
 add_beamerscape_overlay(figures/beamerscape_example.svg)
 
 # Add our main presentation (make a PDF by default)
-add_latex_document(test.tex DEFAULT_PDF)
+add_latex_document(test.tex
+  DEPENDS ${BEAMERSCAPE_OVERLAY_TARGETS}
+  DEFAULT_PDF)
