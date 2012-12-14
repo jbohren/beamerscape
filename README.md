@@ -10,15 +10,15 @@ _Released under a new BSD license._
 Example
 -------
 
-[Inkscape File With Layers & Manual Overlay Spec](http://beamerscape.googlecode.com/hg/figures/beamer_template__ov.svg)
-
-[Generated LaTeX](http://code.google.com/p/beamerscape/source/browse/figures/beamer_template__ov/overlay.tex)
-
-[PDF From pdflatex](http://beamerscape.googlecode.com/hg/test.pdf)
+See the built-in examples [here](https://github.com/jbohren/beamerscape/tree/master/examples). The `export_overlays` example uses/builds the following:
+ - [Inkscape File With Layers & Manual Overlay Spec](http://beamerscape.googlecode.com/hg/figures/beamer_template__ov.svg)
+ - [Generated LaTeX](http://code.google.com/p/beamerscape/source/browse/figures/beamer_template__ov/overlay.tex)
+ - [PDF From pdflatex](http://beamerscape.googlecode.com/hg/test.pdf)
 
 
 Changelist
 ----------
+ * 0.5 - added optional output path argument & disabled --export-latex argument
  * 0.4 - added "--export-latex" argument to inkscape export command
  * 0.3 - swiched to use pgfimage instead of includegraphics
  * 0.2 - more control over display, more robust layer extraction
@@ -76,7 +76,7 @@ Advanced Usage
 
 ### Building with CMake
 
-It's useful to use a build system if you're generating a large number of presentations (i.e. for a course or seminar). In this case, you can use CMake to build your Beamer presentations. See the CMakeLists.txt file found in the examples directory [here](https://github.com/jbohren/beamerscape/blob/master/examples/CMakeLists.txt) for ean example.
+It's useful to use a build system if you're generating a large number of presentations (i.e. for a course or seminar). In this case, you can use CMake to build your Beamer presentations. See the CMakeLists.txt file found in the examples directory [here](https://github.com/jbohren/beamerscape/blob/master/examples/CMakeLists.txt) for ean example. Also, due to CMake's use of out-of-source builds, all of the build products (and by-products!) will be contained in your build directory, so they don't litter your LaTeX source dir. 
 
 ### Manipulating How Overlays Appear
 
