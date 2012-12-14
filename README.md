@@ -86,23 +86,23 @@ You can tell `export_overlays` specifically which layers you want to appear when
  * `LayerA`
 
 Would appear in the order A,B,X. Note that the _names_ of the layers are not important except for the overlay specification. You could specify each frame manually like so:
- * `LayerX<3->`
- * `LayerB<2->`
- * `LayerA<1->`
+ * `<3->LayerX`
+ * `<2->LayerB`
+ * `<1->LayerA`
 
 You could specify this manually using `<+->` as well (this is the default behavior):
- * `LayerX<+->`
- * `LayerB<+->`
- * `LayerA<+->`
+ * `<+->LayerX`
+ * `<+->LayerB`
+ * `<+->LayerA`
 
 If, however, you only wanted `LayerA` to appear alone during the first overlay, and not afterwards, you can specify it like so:
- * `LayerX<+->`
- * `LayerB<+(1)->`
- * `LayerA<1>`
+ * `<+->LayerX`
+ * `<+(1)->LayerB`
+ * `<1>LayerA`
 
 Or, alternatively:
  * `LayerX`
- * `LayerB<+(1)->`
- * `LayerA<1>`
+ * `<+(1)->LayerB`
+ * `<1>LayerA`
 
 See the [Beamer User Guide](http://mirrors.ibiblio.org/pub/mirrors/CTAN/macros/latex/contrib/beamer/doc/beameruserguide.pdf), _sec. 3.10_ and _sec. 9.6.4_ to learn more about overlay specification. Also note that Inkscape 0.47, 0.48.1 [do *not* save a file if all you have changed is a layer name](https://bugs.launchpad.net/inkscape/+bug/806302), so you will need to move something back-and-forth and re-save if you want changes in layer names to be written to disk.
