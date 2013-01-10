@@ -46,5 +46,5 @@ function(add_beamerscape_overlay SVG_FILE)
   add_custom_target(${SVG_BASENAME} ALL DEPENDS ${OVERLAY_OUTPUT_FILE})
 
   # Add the target to the list of beamerscape overlays
-  set(BEAMERSCAPE_OVERLAY_TARGETS "${SVG_BASENAME};${BEAMERSCAPE_OVERLAY_TARGETS}" PARENT_SCOPE)
+  set(BEAMERSCAPE_OVERLAY_TARGETS "${OVERLAY_OUTPUT_FILE};${BEAMERSCAPE_OVERLAY_TARGETS}" PARENT_SCOPE)
 endfunction()
