@@ -37,6 +37,7 @@ function(add_beamerscape_overlay SVG_FILE)
   # Add the command to generate the overlays
   add_custom_command(
     OUTPUT ${OVERLAY_OUTPUT_FILE}
+    DEPENDS ${SVG_ABSPATH}
     COMMAND ${EXPORT_OVERLAYS_LOCATION} ${SVG_ABSPATH} ${OVERLAY_OUTPUT_DIR}
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
     COMMENT "Generating beamerscape pdf overlays from \"${SVG_BASENAME}\"")
