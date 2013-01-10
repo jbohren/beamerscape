@@ -11,15 +11,8 @@
 #   For more info, see:
 #     https://github.com/jbohren/beamerscape
 # 
-# Changelist
-#   0.5 - added optional output path argument & disabled --export-latex argument
-#   0.4 - added "--export-latex" argument to inkscape export
-#   0.3 - changed image input to use pgfimage
-#   0.2 - added xml parsing to get layer names, manual overlay specification
-#   0.1 - initial release
-#
 # License
-#   Copyright (c) 2011, Jonathan Bohren (jonathan.bohren@gmail.com)
+#   Copyright (c) 2013, Jonathan Bohren (jonathan.bohren@gmail.com)
 #   All rights reserved.
 #  
 #   Redistribution and use in source and binary forms, with or without
