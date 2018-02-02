@@ -96,7 +96,7 @@ foreach my $layer ( @layers ) {
 
     # Create tex for this layer
     printf TEXFILE "
-  \% Layer \"%s\"
+  %% Layer \"%s\"
   \\pgfdeclareimage[width=\\paperwidth]{%s}{%s}
   \\begin{textblock}{1}(0,0)
     \\pgfuseimage<%s>{%s}
